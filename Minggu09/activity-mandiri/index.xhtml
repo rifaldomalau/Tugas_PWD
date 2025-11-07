@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="id" lang="id">
+<head>
+    <title>Form Validation (XHTML)</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <script type="text/javascript" src="js/script.js"></script>
+</head>
+<body>
+    <div id="wrapper">
+        <h1>Contact Us</h1>
+
+        <form id="contact" method="post" action="">
+            <fieldset>
+                <legend>Form Kontak</legend>
+                <table summary="Form kontak sederhana">
+                    <tr>
+                        <td class="labelcell">
+                            <label for="name">Nama</label>
+                        </td>
+                        <td class="fieldcell">
+                            <input type="text" id="name" name="name" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="labelcell">
+                            <label for="email">E-mail</label>
+                        </td>
+                        <td class="fieldcell">
+                            <input type="text" id="email" name="email" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="labelcell" valign="top">
+                            <label for="message">Pesan</label>
+                        </td>
+                        <td class="fieldcell">
+                            <textarea id="message" name="message" cols="30" rows="10"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="labelcell" colspan="2">
+                            <input type="submit" id="submit" name="submit" value="Send" class="button"
+                                onclick="return fn_ValForm();" />
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        </form>
+    </div>
+</body>
+</html>
+

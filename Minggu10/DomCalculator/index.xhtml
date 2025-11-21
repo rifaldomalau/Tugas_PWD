@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN" lang="EN">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <script type="text/javascript" src="js/calculator.js"></script>
+        <title>DOM Calculator</title>
+    </head>
+    <body onload="init()">
+        <h3>DOM Calculator</h3>
+        <p>Simply type in a string such as <code>12 + 43 * 6</code> and click GO.</p>
+        <strong>COMPUTE :</strong>
+        <input id="uin" value="12 + 43 * 6" maxLength="30" />
+        &nbsp;&nbsp;<input value="GO" type="button" onclick="comp('uin')" />
+        <p id="par">And the answer is:
+        <span id="ans">00</span></p>
+    </body>
+</html>

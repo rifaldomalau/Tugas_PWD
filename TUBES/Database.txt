@@ -23,6 +23,32 @@ CREATE TABLE users (
 INSERT INTO users (username, email, password, nama_lengkap, role, is_active) 
 VALUES ('admin', 'admin@gmail.com', '$2y$10$8.unlqw.7.q1.q1.q1.q1.q1.q1.q1.q1', 'Administrator', 'admin', 1);
 
+----------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS absensi (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    tanggal DATE,
+    jam_masuk TIME,
+    jam_keluar TIME,
+    lokasi_lat VARCHAR(50),
+    lokasi_long VARCHAR(50),
+    keterangan TEXT,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+----------------------------------------------------------------
+
+CREATE TABLE tugas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL, -- Tugas ini untuk pegawai siapa?
+    judul VARCHAR(100) NOT NULL,
+    deskripsi TEXT,
+    deadline DATE,
+    status ENUM('Belum Selesai', 'Selesai') DEFAULT 'Belum Selesai',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
 
 GMAIL
 TUBES: lmih ogym dezc svnu

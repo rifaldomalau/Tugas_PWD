@@ -1,6 +1,5 @@
 <?php
 session_start();
-// Cek Login & Role Staff
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'staff') {
     header("Location: ../auth/login.php");
     exit;
@@ -19,38 +18,37 @@ $sudah_absen = mysqli_num_rows($cek_absen);
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Staff</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style> .content { width: 100%; } </style>
 </head>
-<body class="bg-light">
+<body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="#">E-Staff Panel</a>
-            <div class="d-flex">
-                <span class="navbar-text text-white me-3">Halo, <?php echo $_SESSION['nama']; ?></span>
-                <a href="../auth/logout.php" class="btn btn-danger btn-sm">Logout</a>
-            </div>
-        </div>
-    </nav>
+<div class="d-flex">
+    
+    <?php 
+    $page = 'dashboard'; 
+    include('sidebar.php'); 
+    ?>
 
-    <div class="container mt-4">
+    <div class="bg-light p-4 content">
+        <h2 class="mb-4">Dashboard Pegawai</h2>
+
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-8">
                 <div class="card shadow">
                     <div class="card-header bg-primary text-white">
                         Form Absensi Harian
                     </div>
-                    <div class="card-body text-center">
-                        <h1 id="jam-digital" class="display-4 fw-bold">--:--:--</h1>
-                        <p class="text-muted"><?php echo date('l, d F Y'); ?></p>
+                    <div class="card-body text-center py-5">
+                        <h1 id="jam-digital" class="display-3 fw-bold mb-3">--:--:--</h1>
+                        <p class="text-muted fs-5"><?php echo date('l, d F Y'); ?></p>
                         <hr>
 
                         <?php if ($sudah_absen > 0) { ?>
-                            <div class="alert alert-success">
-                                <h5>Anda sudah absen hari ini!</h5>
-                                <small>Selamat bekerja.</small>
+                            <div class="alert alert-success p-4">
+                                <h4>✅ Anda sudah absen hari ini!</h4>
+                                <p class="mb-0">Terima kasih, selamat bekerja.</p>
                             </div>
                         <?php } else { ?>
                             
@@ -58,12 +56,13 @@ $sudah_absen = mysqli_num_rows($cek_absen);
                                 <input type="hidden" name="latitude" id="latitude">
                                 <input type="hidden" name="longitude" id="longitude">
 
-                                <div id="lokasi-info" class="mb-3 text-danger">
-                                    <small>Sedang mendeteksi lokasi...</small>
+                                <div id="lokasi-info" class="mb-3 text-danger fw-bold">
+                                    <div class="spinner-border spinner-border-sm text-danger" role="status"></div>
+                                    Sedang mendeteksi lokasi...
                                 </div>
 
-                                <button type="submit" name="absen_masuk" id="btn-absen" class="btn btn-primary btn-lg w-100" disabled>
-                                    ABSEN MASUK SEKARANG
+                                <button type="submit" name="absen_masuk" id="btn-absen" class="btn btn-primary btn-lg w-75 py-3" disabled>
+                                    📍 KLIK UNTUK ABSEN MASUK
                                 </button>
                             </form>
 
@@ -71,23 +70,48 @@ $sudah_absen = mysqli_num_rows($cek_absen);
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-6">
-                <div class="card shadow">
-                    <div class="card-header bg-secondary text-white">
-                        Menu Staff
-                    </div>
-                    <div class="card-body">
-                        <div class="d-grid gap-2">
-                            <a href="profil.php" class="btn btn-outline-dark">Edit Profil & Foto</a>
-                            <a href="tugas.php" class="btn btn-outline-dark">Lihat Tugas Harian</a>
-                            <a href="riwayat.php" class="btn btn-outline-dark">Riwayat Absensi</a>
-                        </div>
+            
+            <div class="col-md-4">
+                <div class="card shadow bg-white mb-3">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-muted">Status Akun</h5>
+                        <h3>Aktif ✅</h3>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="js/script.js"></script> 
+
+</div>
+
+<script>
+    setInterval(() => {
+        const now = new Date();
+        document.getElementById('jam-digital').innerText = now.toLocaleTimeString();
+    }, 1000);
+
+    const lokasiInfo = document.getElementById('lokasi-info');
+    const btnAbsen = document.getElementById('btn-absen');
+    const inputLat = document.getElementById('latitude');
+    const inputLong = document.getElementById('longitude');
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else {
+        lokasiInfo.innerHTML = "Geolocation tidak didukung browser ini.";
+    }
+
+    function showPosition(position) {
+        inputLat.value = position.coords.latitude;
+        inputLong.value = position.coords.longitude;
+        lokasiInfo.innerHTML = `<span class="text-success">📍 Lokasi Terkunci: ${position.coords.latitude}, ${position.coords.longitude}</span>`;
+        if(btnAbsen) btnAbsen.disabled = false;
+    }
+
+    function showError(error) {
+        lokasiInfo.innerHTML = "Gagal mendeteksi lokasi. Pastikan GPS aktif/diizinkan.";
+    }
+</script>
+
 </body>
 </html>

@@ -36,6 +36,9 @@
                             <div class="d-grid">
                                 <button type="submit" name="login" class="btn btn-primary btn-lg">Masuk Sistem</button>
                             </div>
+                            <div class="text-center mt-3 mb-3">
+                                <a href="lupa-password.php" class="text-decoration-none">Lupa Password?</a>
+                            </div>
                         </form>
 
                     </div>

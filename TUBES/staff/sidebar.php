@@ -39,12 +39,6 @@
             </a>
         </li>
 
-        <li class="nav-item">
-            <a href="izin.php" class="nav-link <?php if($page == 'izin'){ echo 'active'; } ?>">
-                🤒 Izin / Sakit
-            </a>
-        </li>
-
     </ul>
     <hr>
     <div class="dropdown">

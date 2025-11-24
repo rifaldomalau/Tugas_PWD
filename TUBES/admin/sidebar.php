@@ -30,17 +30,10 @@
         </li>
 
         <li class="nav-item">
-            <a href="persetujuan.php" class="nav-link <?php if($page == 'persetujuan'){ echo 'active'; } ?>">
-                ✅ Persetujuan Izin
-            </a>
-        </li>
-
-        <li class="nav-item">
             <a href="cetak-laporan.php" target="_blank" class="nav-link">
                 🖨️ Cetak Laporan
             </a>
         </li>
-
 
     </ul>
     <hr>
